@@ -12,5 +12,5 @@ public interface ExpenseService {
 
     Expense save(Expense expense);
 
-    void deleteBydId(Integer id);
+    void deleteById(Integer id);
 }
