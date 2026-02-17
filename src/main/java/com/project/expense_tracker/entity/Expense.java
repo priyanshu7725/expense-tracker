@@ -14,16 +14,17 @@ public class Expense {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="name")
+    // using nullable = false to validate with table schema in DB
+    @Column(name="name", nullable = false)
     private String name;
 
-    @Column(name="date")
+    @Column(name="date", nullable = false)
     private LocalDate date;
 
-    @Column(name="amount")
+    @Column(name="amount", nullable = false)
     private Double amount;
 
-    @Column(name="category")
+    @Column(name="category", nullable = false)
     private String category;
 
     // define non param and param constructor

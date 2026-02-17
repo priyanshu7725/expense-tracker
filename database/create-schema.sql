@@ -8,4 +8,4 @@ CREATE TABLE expense (
     name VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
     amount DOUBLE NOT NULL,
-    category VARCHAR(255));
+    category VARCHAR(255) NOT NULL);
