@@ -34,11 +34,35 @@ public class ExpenseServiceImpl implements ExpenseService{
     @Override
     public Expense save(Expense expense) {
         if ( expense.getDate() == null) expense.setDate(LocalDate.now());
+
+        String cat = expense.getCategory();
+
+        // handling both null and blank
+        if ( cat == null || cat.trim().isEmpty()) throw new RuntimeException("Category cannot be blank");
+        else expense.setCategory(cat.trim().toLowerCase());
+
         return expenseRepository.save(expense);
     }
 
     @Override
     public void deleteById(Integer id) {
         expenseRepository.deleteById(id);
+    }
+
+    @Override
+    public Double getTotalByCategory(String category) {
+
+        Double result;
+
+        // handling both null and blank
+        if ( category == null || category.trim().isEmpty()) {
+            throw new RuntimeException("Category cannot be blank");
+        }
+
+        result = expenseRepository.getTotalByCategory(category.trim().toLowerCase());
+
+        if ( result == null) return 0.0;
+
+        return result;
     }
 }

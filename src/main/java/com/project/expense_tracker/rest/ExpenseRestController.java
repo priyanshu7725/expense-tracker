@@ -59,4 +59,10 @@ public class ExpenseRestController {
 
         return "Deleted Expense Id - " + id;
     }
+
+    // exposing endpoint for getting total by category
+    @GetMapping("/expenses/total/{category}")
+    public Double getTotalByCategory(@PathVariable String category) {
+        return expenseService.getTotalByCategory(category);
+    }
 }

@@ -13,4 +13,6 @@ public interface ExpenseService {
     Expense save(Expense expense);
 
     void deleteById(Integer id);
+
+    Double getTotalByCategory(String category);
 }
