@@ -65,4 +65,10 @@ public class ExpenseRestController {
     public Double getTotalByCategory(@PathVariable String category) {
         return expenseService.getTotalByCategory(category);
     }
+
+    // exposing endpoint for getting list of expense by category
+    @GetMapping("/expenses/category/{category}")
+    public List<Expense> getListByCategory(@PathVariable String category) {
+        return expenseService.listByCategory(category);
+    }
 }

@@ -65,4 +65,13 @@ public class ExpenseServiceImpl implements ExpenseService{
 
         return result;
     }
+
+    @Override
+    public List<Expense> listByCategory(String category) {
+
+        if ( category == null || category.trim().isEmpty()) {
+            throw new RuntimeException("Category cannot be blank");
+        }
+        return expenseRepository.listByCategory(category.trim().toLowerCase());
+    }
 }
