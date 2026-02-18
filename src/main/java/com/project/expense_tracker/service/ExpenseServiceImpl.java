@@ -50,6 +50,16 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
+    public Double getTotal() {
+
+        Double result = expenseRepository.getTotalExpense();
+
+        if ( result == null) return 0.0;
+
+        return result;
+    }
+
+    @Override
     public Double getTotalByCategory(String category) {
 
         Double result;

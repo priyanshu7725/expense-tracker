@@ -14,6 +14,8 @@ public interface ExpenseService {
 
     void deleteById(Integer id);
 
+    Double getTotal();
+
     Double getTotalByCategory(String category);
 
     List<Expense> listByCategory(String category);

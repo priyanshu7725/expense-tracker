@@ -13,4 +13,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 
     @Query("SELECT e FROM Expense e WHERE e.category =:category ORDER BY e.date DESC, e.id DESC")
     List<Expense> listByCategory(String category);
+
+    @Query("SELECT sum(e.amount) FROM Expense e")
+    Double getTotalExpense();
 }
