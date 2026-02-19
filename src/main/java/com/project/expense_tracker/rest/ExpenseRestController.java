@@ -5,6 +5,7 @@ import com.project.expense_tracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -76,5 +77,13 @@ public class ExpenseRestController {
     @GetMapping("/expenses/category/{category}")
     public List<Expense> getListByCategory(@PathVariable String category) {
         return expenseService.listByCategory(category);
+    }
+
+    // exposing endpoint /expenses/range?start=yyyy-mm-dd&end=yyyy-mm-dd
+    // for getting list of expenses in date range
+    @GetMapping("/expenses/range")
+    public List<Expense> getListInRange(@RequestParam(required = false)LocalDate start,
+                                        @RequestParam(required = false) LocalDate end) {
+        return expenseService.getExpensesInDateRange(start, end);
     }
 }

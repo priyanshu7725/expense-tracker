@@ -84,4 +84,19 @@ public class ExpenseServiceImpl implements ExpenseService{
         }
         return expenseRepository.listByCategory(category.trim().toLowerCase());
     }
+
+    @Override
+    public List<Expense> getExpensesInDateRange(LocalDate start, LocalDate end) {
+
+        if (end == null) {
+            end = LocalDate.now();
+        }
+        if (start == null) {
+            start = end.minusDays(30);
+        }
+        if ( start.isAfter(end)) {
+            throw new RuntimeException("Invalid Date Range");
+        }
+        return expenseRepository.findByDateBetweenOrderByDateDescIdDesc(start, end);
+    }
 }

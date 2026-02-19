@@ -2,6 +2,7 @@ package com.project.expense_tracker.service;
 
 import com.project.expense_tracker.entity.Expense;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ExpenseService {
@@ -19,4 +20,6 @@ public interface ExpenseService {
     Double getTotalByCategory(String category);
 
     List<Expense> listByCategory(String category);
+
+    List<Expense> getExpensesInDateRange(LocalDate start, LocalDate end);
 }

@@ -4,6 +4,7 @@ import com.project.expense_tracker.entity.Expense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
@@ -16,4 +17,6 @@ public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 
     @Query("SELECT sum(e.amount) FROM Expense e")
     Double getTotalExpense();
+
+    List<Expense> findByDateBetweenOrderByDateDescIdDesc(LocalDate start, LocalDate end);
 }
