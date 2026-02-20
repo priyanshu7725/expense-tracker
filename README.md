@@ -45,6 +45,7 @@ Entity → Repository → Service → REST Controller
 
 ### Aggregations
 - Total of all Expenses
+- Total by Custom Date Range
 
 ### Date Range
 - List by Custom Date Range
@@ -73,6 +74,7 @@ GET /api/expenses/range?start=yyyy-MM-dd&end=yyyy-MM-dd
 
 GET /api/expenses/total/{category}
 GET /api/expenses/total
+GET /api/expenses/range/total/?start=yyyy-MM-dd&end=yyyy-MM-dd
 ```
 
 ## Database
@@ -80,7 +82,6 @@ The database is managed using MySQL.
 The Schema Script can be found in /database/create-schema.sql
 
 ## Future Improvements
-- Total by custom date range
 - Current month total
 - Last 30 days total endpoint 
 - Global exception handling

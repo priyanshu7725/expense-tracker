@@ -22,4 +22,6 @@ public interface ExpenseService {
     List<Expense> listByCategory(String category);
 
     List<Expense> getExpensesInDateRange(LocalDate start, LocalDate end);
+
+    Double getTotalForRange(LocalDate start, LocalDate end);
 }
