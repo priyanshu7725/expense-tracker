@@ -112,4 +112,18 @@ public class ExpenseServiceImpl implements ExpenseService{
         if ( result == null) return 0.0;
         return result;
     }
+
+    @Override
+    public Double getTotalForMonth(Integer year, Integer month) {
+
+        if ( year == null) year = LocalDate.now().getYear();
+        if ( month == null) month = LocalDate.now().getMonthValue();
+
+        if ( month < 1 || month > 12) throw new RuntimeException("Invalid Month");
+
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+        return getTotalForRange(start, end);
+    }
 }

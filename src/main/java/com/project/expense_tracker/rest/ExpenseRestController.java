@@ -87,11 +87,19 @@ public class ExpenseRestController {
         return expenseService.getExpensesInDateRange(start, end);
     }
 
-    // exposing endpoint /expenses/range/total/?start=&end=
+    // exposing endpoint /expenses/range/total?start=&end=
     // for getting total expense in a date range
     @GetMapping("/expenses/range/total")
     public Double getTotalForRange(@RequestParam(required = false) LocalDate start,
                                    @RequestParam(required = false) LocalDate end) {
         return expenseService.getTotalForRange(start, end);
+    }
+
+    // exposes endpoint /expenses/total/month?year=&month=
+    // for getting total expenses in a given month
+    @GetMapping("/expenses/total/month")
+    public Double getTotalForMonth(@RequestParam(required = false) Integer year,
+                                   @RequestParam(required = false) Integer month) {
+        return expenseService.getTotalForMonth(year, month);
     }
 }

@@ -24,4 +24,6 @@ public interface ExpenseService {
     List<Expense> getExpensesInDateRange(LocalDate start, LocalDate end);
 
     Double getTotalForRange(LocalDate start, LocalDate end);
+
+    Double getTotalForMonth(Integer year, Integer month);
 }
