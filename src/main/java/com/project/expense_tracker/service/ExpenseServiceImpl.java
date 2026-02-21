@@ -1,6 +1,8 @@
 package com.project.expense_tracker.service;
 
 import com.project.expense_tracker.entity.Expense;
+import com.project.expense_tracker.exception.InvalidDataException;
+import com.project.expense_tracker.exception.ResourceNotFoundException;
 import com.project.expense_tracker.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ public class ExpenseServiceImpl implements ExpenseService{
     public Expense findById(Integer id) {
         return expenseRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Expense Id - " + id + " was not found"));
+                        new ResourceNotFoundException("Expense ID not found - " + id));
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         String cat = expense.getCategory();
 
         // handling both null and blank
-        if ( cat == null || cat.trim().isEmpty()) throw new RuntimeException("Category cannot be blank");
+        if ( cat == null || cat.trim().isEmpty()) throw new InvalidDataException("Category must not be blank");
         else expense.setCategory(cat.trim().toLowerCase());
 
         return expenseRepository.save(expense);
@@ -46,13 +48,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 
     @Override
     public void deleteById(Integer id) {
-
-        Expense expense = findById(id);
-
-        if ( expense == null) {
-            throw new RuntimeException("Expense ID not found - " + id);
-        }
-
+        findById(id);
         expenseRepository.deleteById(id);
     }
 
@@ -73,7 +69,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 
         // handling both null and blank
         if ( category == null || category.trim().isEmpty()) {
-            throw new RuntimeException("Category cannot be blank");
+            throw new InvalidDataException("Category must not be blank");
         }
 
         result = expenseRepository.getTotalByCategory(category.trim().toLowerCase());
@@ -87,7 +83,7 @@ public class ExpenseServiceImpl implements ExpenseService{
     public List<Expense> listByCategory(String category) {
 
         if ( category == null || category.trim().isEmpty()) {
-            throw new RuntimeException("Category cannot be blank");
+            throw new InvalidDataException("Category must not be blank");
         }
         return expenseRepository.listByCategory(category.trim().toLowerCase());
     }
@@ -102,7 +98,7 @@ public class ExpenseServiceImpl implements ExpenseService{
             start = end.minusDays(30);
         }
         if ( start.isAfter(end)) {
-            throw new RuntimeException("Invalid Date Range");
+            throw new InvalidDataException("Start date cannot be after end date");
         }
         return expenseRepository.findByDateBetweenOrderByDateDescIdDesc(start, end);
     }
@@ -112,7 +108,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 
         if ( end == null) end = LocalDate.now();
         if ( start == null) start = end.minusDays(30);
-        if ( start.isAfter(end)) throw new RuntimeException("Invalid Date Range");
+        if ( start.isAfter(end)) throw new InvalidDataException("Start date cannot be after end date");
 
         Double result = expenseRepository.getTotalForRange(start, end);
 
@@ -126,7 +122,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         if ( year == null) year = LocalDate.now().getYear();
         if ( month == null) month = LocalDate.now().getMonthValue();
 
-        if ( month < 1 || month > 12) throw new RuntimeException("Invalid Month");
+        if ( month < 1 || month > 12) throw new InvalidDataException("Month must be between 1 and 12");
 
         LocalDate start = LocalDate.of(year, month, 1);
         LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
