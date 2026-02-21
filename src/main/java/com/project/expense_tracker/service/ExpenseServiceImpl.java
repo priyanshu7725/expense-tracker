@@ -46,6 +46,13 @@ public class ExpenseServiceImpl implements ExpenseService{
 
     @Override
     public void deleteById(Integer id) {
+
+        Expense expense = findById(id);
+
+        if ( expense == null) {
+            throw new RuntimeException("Expense ID not found - " + id);
+        }
+
         expenseRepository.deleteById(id);
     }
 

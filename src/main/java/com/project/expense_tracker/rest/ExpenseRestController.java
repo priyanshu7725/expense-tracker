@@ -49,15 +49,7 @@ public class ExpenseRestController {
     // DELETE - delete an expense
     @DeleteMapping("/expenses/{id}")
     public String deleteExpense(@PathVariable Integer id) {
-
-        Expense expense = expenseService.findById(id);
-
-        if ( expense == null) {
-            throw new RuntimeException("Expense ID not found - " + id);
-        }
-
         expenseService.deleteById(id);
-
         return "Deleted Expense Id - " + id;
     }
 
