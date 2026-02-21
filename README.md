@@ -5,7 +5,7 @@ A RESTful backend API for managing personal expenses using Spring Boot, JPA and 
 ## Overview
 
 This project manages personal expenses and provides aggregated insights such as totals by 
-category and date range. It is a backend API that can be integrated with a frontend to 
+category, date range and month. It is a backend API that can be integrated with a frontend to 
 make it more user-friendly. It follows a layered architecture using Entity, Repository,
 Service, and REST Controller layers. This project was built as a self-learning backend
 development exercise.
@@ -46,8 +46,8 @@ Entity → Repository → Service → REST Controller
 ### Aggregations
 - Total of all Expenses
 - Total by Custom Date Range
-- Current month total
-- Last 30 days total endpoint
+- Total by Month (parameterized by year and month)
+- Last 30 days total (default date-range behaviour)
 
 ### Date Range
 - List by Custom Date Range
@@ -73,7 +73,9 @@ DELETE /api/expenses/{id}
 
 GET /api/expenses/category/{category}
 GET /api/expenses/range?start=yyyy-MM-dd&end=yyyy-MM-dd
-
+```
+### Aggregation Endpoints
+```
 GET /api/expenses/total/{category}
 GET /api/expenses/total
 GET /api/expenses/range/total?start=yyyy-MM-dd&end=yyyy-MM-dd
@@ -82,10 +84,9 @@ GET /api/expenses/total/month?year=yyyy&month=MM
 
 ## Database
 The database is managed using MySQL.
-The Schema Script can be found in /database/create-schema.sql
+The schema creation script is available at [/database/create-schema.sql](./database/create-schema.sql)
 
 ## Future Improvements
-- Global exception handling
 - Validation annotations
 - DTO layer
 - BigDecimal instead of Double
